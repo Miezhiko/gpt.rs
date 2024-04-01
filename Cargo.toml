@@ -11,7 +11,7 @@ once_cell           = "^1.19"
 
 [workspace.dependencies.tokio]
 features  = ["rt-multi-thread", "sync", "macros"]
-version   = "^1.36"
+version   = "^1.37"
 workspace = true
 
 [profile.release]
