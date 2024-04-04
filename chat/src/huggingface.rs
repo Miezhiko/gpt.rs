@@ -56,7 +56,6 @@ async fn generate( prompt: &str
 pub struct HuggingFaceGeneratorGemma;
 pub struct HuggingFaceGeneratorMixtral;
 pub struct HuggingFaceGeneratorZephyr;
-pub struct HuggingFaceGeneratorBloom;
 
 #[async_trait]
 impl Generator for HuggingFaceGeneratorGemma {
@@ -94,19 +93,6 @@ impl Generator for HuggingFaceGeneratorZephyr {
                , _fmode: bool
                , _personality: &str ) -> anyhow::Result<String> {
     generate(prompt, "HuggingFaceH4/zephyr-7b-beta").await
-  }
-}
-
-#[async_trait]
-impl Generator for HuggingFaceGeneratorBloom {
-  fn name<'a>( &self )              -> &'a str { "HuggingFaceGeneratorBloom" }
-  fn enabled( &self )               -> bool { true }
-  fn enabled_for_multigen( &self )  -> bool { true }
-  async fn call( &self
-               , prompt: &str
-               , _fmode: bool
-               , _personality: &str ) -> anyhow::Result<String> {
-    generate(prompt, "bigscience/bloom").await
   }
 }
 
