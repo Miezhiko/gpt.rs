@@ -22,7 +22,7 @@ static GENERATORS: Lazy<Vec<Arc<dyn Generator + Send + Sync>>> =
     vec![ Arc::new( g4f::flow::FlowGptGenerator               )
         , Arc::new( huggingface::HuggingFaceGeneratorGemma    )
         , Arc::new( huggingface::HuggingFaceGeneratorMixtral  )
-        , Arc::new( huggingface::HuggingFaceGeneratorZephyr   )
+        , Arc::new( g4f::freechatgpt::FreeChatgptGenerator    )
         ]
   });
 
