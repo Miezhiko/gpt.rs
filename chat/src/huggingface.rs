@@ -53,21 +53,7 @@ async fn generate( prompt: &str
   }
 }
 
-pub struct HuggingFaceGeneratorGemma;
 pub struct HuggingFaceGeneratorMixtral;
-
-#[async_trait]
-impl Generator for HuggingFaceGeneratorGemma {
-  fn name<'a>( &self )              -> &'a str { "HuggingFaceGeneratorGemma" }
-  fn enabled( &self )               -> bool { true }
-  fn enabled_for_multigen( &self )  -> bool { true }
-  async fn call( &self
-               , prompt: &str
-               , _fmode: bool
-               , _personality: &str ) -> anyhow::Result<String> {
-    generate(prompt, "google/gemma-7b-it").await
-  }
-}
 
 #[async_trait]
 impl Generator for HuggingFaceGeneratorMixtral {
@@ -87,7 +73,7 @@ mod huggingface_tests {
   use super::*;
   #[tokio::test]
   async fn huggingface_tests() {
-    let gen = HuggingFaceGeneratorGemma;
+    let gen = HuggingFaceGeneratorMixtral;
     let chat_response =
       gen.call("what gpt version you use?", true, "Fingon").await;
     assert!(chat_response.is_ok());
