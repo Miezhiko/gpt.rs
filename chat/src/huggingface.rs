@@ -53,7 +53,9 @@ async fn generate( prompt: &str
   }
 }
 
+pub struct HuggingFaceGeneratorGemma;
 pub struct HuggingFaceGeneratorMixtral;
+pub struct HuggingFaceGeneratorNousResearch;
 
 #[async_trait]
 impl Generator for HuggingFaceGeneratorMixtral {
@@ -64,7 +66,33 @@ impl Generator for HuggingFaceGeneratorMixtral {
                , prompt: &str
                , _fmode: bool
                , _personality: &str ) -> anyhow::Result<String> {
-    generate(prompt, "mistralai/Mixtral-8x7B-Instruct-v0.1").await
+    generate(prompt, "mistralai/Mistral-7B-Instruct-v0.2").await
+  }
+}
+
+#[async_trait]
+impl Generator for HuggingFaceGeneratorGemma {
+  fn name<'a>( &self )              -> &'a str { "HuggingFaceGeneratorGemma" }
+  fn enabled( &self )               -> bool { true }
+  fn enabled_for_multigen( &self )  -> bool { true }
+  async fn call( &self
+               , prompt: &str
+               , _fmode: bool
+               , _personality: &str ) -> anyhow::Result<String> {
+    generate(prompt, "google/gemma-1.1-7b-it").await
+  }
+}
+
+#[async_trait]
+impl Generator for HuggingFaceGeneratorNousResearch {
+  fn name<'a>( &self )              -> &'a str { "NousResearch" }
+  fn enabled( &self )               -> bool { true }
+  fn enabled_for_multigen( &self )  -> bool { true }
+  async fn call( &self
+               , prompt: &str
+               , _fmode: bool
+               , _personality: &str ) -> anyhow::Result<String> {
+    generate(prompt, "NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO").await
   }
 }
 

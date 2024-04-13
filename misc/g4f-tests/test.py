@@ -1,6 +1,6 @@
 import g4f
 
-# normal response
+# normal response 
 response = g4f.ChatCompletion.create( model=g4f.models.gpt_4, messages=[
                                      {"role": "system", "content": "you are helpful assistant"},
                                      {"role": "user", "content": "I have a nice riddle for you. Can you find the the mistake?\
