@@ -1,7 +1,7 @@
 import g4f
 
 # normal response 
-response = g4f.ChatCompletion.create( model=g4f.models.gpt_4, messages=[
+response = g4f.ChatCompletion.create( model="gpt-3.5-turbo", messages=[
                                      {"role": "system", "content": "you are helpful assistant"},
                                      {"role": "user", "content": "I have a nice riddle for you. Can you find the the mistake?\
 \

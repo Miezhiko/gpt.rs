@@ -22,12 +22,12 @@ use chat_utils::help::lang;
 static MSGHIST: Lazy<Mutex<VecDeque<(String, String)>>> =
   Lazy::new(|| Mutex::new( VecDeque::with_capacity(1) ));
 
-pub struct FlowGptGenerator;
+pub struct AichatosGenerator;
 
 #[async_trait]
-impl Generator for FlowGptGenerator {
+impl Generator for AichatosGenerator {
   fn name<'a>( &self ) -> &'a str {
-    "FlowGpt"
+    "Aichatos"
   }
   fn enabled( &self ) -> bool {
     true
@@ -75,9 +75,9 @@ impl Generator for FlowGptGenerator {
           messages.append({"role": "user", "content": prompt})
           rspns = g4f.ChatCompletion.create( model="gpt-3.5-turbo", messages=messages
                                            , stream=False, auth="jwt"
-                                           , provider=g4f.Provider.FlowGpt )
+                                           , provider=g4f.Provider.Aichatos )
           if not rspns:
-            result = "FlowGpt: Sorry, I can't generate a response right now."
+            result = "Aichatos: Sorry, I can't generate a response right now."
             reslt = False
           else:
             result = rspns
@@ -105,17 +105,17 @@ impl Generator for FlowGptGenerator {
         } else {
           bail!("No tokens generated: {:?}", m)
         }
-      }, Err(_) => { bail!("Failed to to use FlowGpt now!") }
+      }, Err(_) => { bail!("Failed to to use Aichatos now!") }
     }
   }
 }
 
 #[cfg(test)]
-mod flow_tests {
+mod aichatos_tests {
   use super::*;
   #[tokio::test]
-  async fn flow_test() {
-    let gen = FlowGptGenerator;
+  async fn aichatos_test() {
+    let gen = AichatosGenerator;
     let chat_response =
       gen.call("what gpt version you use?", true, "Fingon").await;
     assert!(chat_response.is_ok());

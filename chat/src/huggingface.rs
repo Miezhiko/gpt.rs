@@ -53,9 +53,23 @@ async fn generate( prompt: &str
   }
 }
 
+pub struct HuggingFaceGeneratorPhi;
 pub struct HuggingFaceGeneratorGemma;
 pub struct HuggingFaceGeneratorMixtral;
 pub struct HuggingFaceGeneratorNousResearch;
+
+#[async_trait]
+impl Generator for HuggingFaceGeneratorPhi {
+  fn name<'a>( &self )              -> &'a str { "HuggingFaceGeneratorPhi" }
+  fn enabled( &self )               -> bool { true }
+  fn enabled_for_multigen( &self )  -> bool { true }
+  async fn call( &self
+               , prompt: &str
+               , _fmode: bool
+               , _personality: &str ) -> anyhow::Result<String> {
+    generate(prompt, "microsoft/Phi-3-mini-4k-instruct").await
+  }
+}
 
 #[async_trait]
 impl Generator for HuggingFaceGeneratorMixtral {
@@ -87,7 +101,7 @@ impl Generator for HuggingFaceGeneratorGemma {
 impl Generator for HuggingFaceGeneratorNousResearch {
   fn name<'a>( &self )              -> &'a str { "NousResearch" }
   fn enabled( &self )               -> bool { true }
-  fn enabled_for_multigen( &self )  -> bool { true }
+  fn enabled_for_multigen( &self )  -> bool { false }
   async fn call( &self
                , prompt: &str
                , _fmode: bool
