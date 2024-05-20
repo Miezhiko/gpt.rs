@@ -111,10 +111,10 @@ impl Generator for DuckDuckGoGenerator {
 }
 
 #[cfg(test)]
-mod cnote_tests {
+mod ddg_tests {
   use super::*;
   #[tokio::test]
-  async fn cnote_test() {
+  async fn ddg_test() {
     let gen = DuckDuckGoGenerator;
     let chat_response =
       gen.call("what gpt version you use?", true, "Fingon").await;

@@ -22,12 +22,12 @@ use chat_utils::help::lang;
 static MSGHIST: Lazy<Mutex<VecDeque<(String, String)>>> =
   Lazy::new(|| Mutex::new( VecDeque::with_capacity(1) ));
 
-pub struct AichatosGenerator;
+pub struct BlackboxGenerator;
 
 #[async_trait]
-impl Generator for AichatosGenerator {
+impl Generator for BlackboxGenerator {
   fn name<'a>( &self ) -> &'a str {
-    "Aichatos"
+    "Blackbox"
   }
   fn enabled( &self ) -> bool {
     true
@@ -75,9 +75,9 @@ impl Generator for AichatosGenerator {
           messages.append({"role": "user", "content": prompt})
           rspns = g4f.ChatCompletion.create( model="gpt-3.5-turbo", messages=messages
                                            , stream=False, auth="jwt"
-                                           , provider=g4f.Provider.Aichatos )
+                                           , provider=g4f.Provider.Blackbox )
           if not rspns:
-            result = "Aichatos: Sorry, I can't generate a response right now."
+            result = "Blackbox: Sorry, I can't generate a response right now."
             reslt = False
           else:
             result = rspns
@@ -105,17 +105,17 @@ impl Generator for AichatosGenerator {
         } else {
           bail!("No tokens generated: {:?}", m)
         }
-      }, Err(_) => { bail!("Failed to to use Aichatos now!") }
+      }, Err(_) => { bail!("Failed to to use Blackbox now!") }
     }
   }
 }
 
 #[cfg(test)]
-mod aichatos_tests {
+mod blackbox_tests {
   use super::*;
   #[tokio::test]
-  async fn aichatos_test() {
-    let gen = AichatosGenerator;
+  async fn blackbox_test() {
+    let gen = BlackboxGenerator;
     let chat_response =
       gen.call("what gpt version you use?", true, "Fingon").await;
     assert!(chat_response.is_ok());

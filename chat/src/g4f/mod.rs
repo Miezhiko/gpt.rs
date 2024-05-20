@@ -1,2 +1,2 @@
-pub mod aichatos;
+pub mod blackbox;
 pub mod ddg;
