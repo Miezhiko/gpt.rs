@@ -91,19 +91,21 @@ impl Generator for BlackboxGenerator {
       }); ( c.get::<bool>("reslt")
           , c.get::<String>("result") )
     }) {
-      Ok((r,m)) => {
+      Ok((r,m_with_trash)) => {
         if r {
+          let re = regex::Regex::new(r"\$@\$(.*?)\$@\$").unwrap();
+          let m = re.replace_all(m_with_trash.as_str(), "");
           if !m.is_empty() {
             if msg_lock.len() == msg_lock.capacity() {
               msg_lock.pop_front();
             }
             if (prompt.len() + m.len()) < constants::HISTORY_LIMIT {
-              msg_lock.push_back((prompt.to_string(), m.clone()));
+              msg_lock.push_back((prompt.to_string(), m.to_string()));
             }
           }
-          Ok(m)
+          Ok(m.to_string())
         } else {
-          bail!("No tokens generated: {:?}", m)
+          bail!("No tokens generated: {:?}", m_with_trash)
         }
       }, Err(_) => { bail!("Failed to to use Blackbox now!") }
     }
