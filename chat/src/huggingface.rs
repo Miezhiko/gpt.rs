@@ -98,7 +98,7 @@ mod huggingface_tests {
   use super::*;
   #[tokio::test]
   async fn huggingface_tests() {
-    let gen = HuggingFaceGeneratorMixtral;
+    let gen = HUGGING_FACE_GENERATOR_MIXTRAL;
     let chat_response =
       gen.call("what gpt version you use?", true, "Fingon").await;
     assert!(chat_response.is_ok());

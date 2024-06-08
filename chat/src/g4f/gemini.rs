@@ -22,12 +22,12 @@ use chat_utils::help::lang;
 static MSGHIST: Lazy<Mutex<VecDeque<(String, String)>>> =
   Lazy::new(|| Mutex::new( VecDeque::with_capacity(1) ));
 
-pub struct DuckDuckGoGenerator;
+pub struct GeminiProChatGenerator;
 
 #[async_trait]
-impl Generator for DuckDuckGoGenerator {
+impl Generator for GeminiProChatGenerator {
   fn name<'a>( &self ) -> &'a str {
-    "DuckDuckGo"
+    "GeminiProChat"
   }
   fn enabled( &self ) -> bool {
     true
@@ -75,9 +75,9 @@ impl Generator for DuckDuckGoGenerator {
           messages.append({"role": "user", "content": prompt})
           rspns = g4f.ChatCompletion.create( model="gpt-3.5-turbo", messages=messages
                                            , stream=False, auth="jwt"
-                                           , provider=g4f.Provider.DuckDuckGo )
+                                           , provider=g4f.Provider.GeminiProChat )
           if not rspns:
-            result = "DuckDuckGo: Sorry, I can't generate a response right now."
+            result = "GeminiProChat: Sorry, I can't generate a response right now."
             reslt = False
           else:
             result = rspns
@@ -105,17 +105,17 @@ impl Generator for DuckDuckGoGenerator {
         } else {
           bail!("No tokens generated: {:?}", m)
         }
-      }, Err(_) => { bail!("Failed to to use DuckDuckGo now!") }
+      }, Err(_) => { bail!("Failed to to use GeminiProChat now!") }
     }
   }
 }
 
 #[cfg(test)]
-mod ddg_tests {
+mod gemini_tests {
   use super::*;
   #[tokio::test]
-  async fn ddg_test() {
-    let gen = DuckDuckGoGenerator;
+  async fn gemini_test() {
+    let gen = GeminiProChatGenerator;
     let chat_response =
       gen.call("what gpt version you use?", true, "Fingon").await;
     assert!(chat_response.is_ok());

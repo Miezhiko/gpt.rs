@@ -1,2 +1,2 @@
 pub mod blackbox;
-pub mod ddg;
+pub mod gemini;
