@@ -4,6 +4,7 @@
 
 # Requirements:
 
+- [huggingface](https://github.com/huggingface/huggingface_hub)
 - [poe-api](https://github.com/ading2210/poe-api) (deprecated, dropped)
 - [gpt4free](https://github.com/xtekky/gpt4free)
 
