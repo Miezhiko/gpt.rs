@@ -93,6 +93,13 @@ pub const HUGGING_FACE_GENERATOR_NOUS_RESEARCH: HuggingFaceGenerator = HuggingFa
   model: "NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO"
 };
 
+pub const HUGGING_FACE_GENERATOR_YI: HuggingFaceGenerator = HuggingFaceGenerator {
+  name: "Yi",
+  enabled: true,
+  enabled_for_multigen: false,
+  model: "01-ai/Yi-1.5-34B-Chat"
+};
+
 #[cfg(test)]
 mod huggingface_tests {
   use super::*;

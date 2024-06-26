@@ -15,7 +15,7 @@ output = None
 
 output = client.text_generation(
   "Write usage example for std atomic in C++"
-  , model="microsoft/Phi-3-mini-4k-instruct"
+  , model="01-ai/Yi-1.5-34B-Chat"
   , max_new_tokens=250
   , stream=False)
 

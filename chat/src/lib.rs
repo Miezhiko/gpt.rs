@@ -26,6 +26,7 @@ static GENERATORS: Lazy<Vec<Arc<dyn Generator + Send + Sync>>> =
         , Arc::new( huggingface::HUGGING_FACE_GENERATOR_GEMMA         )
         , Arc::new( huggingface::HUGGING_FACE_GENERATOR_MIXTRAL       )
         , Arc::new( huggingface::HUGGING_FACE_GENERATOR_NOUS_RESEARCH )
+        , Arc::new( huggingface::HUGGING_FACE_GENERATOR_YI            )
         ]
   });
 
