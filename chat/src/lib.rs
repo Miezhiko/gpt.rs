@@ -55,6 +55,31 @@ pub async fn generate(msg: &str, bot_name: &str, fancy: bool) -> anyhow::Result<
   Err( anyhow::anyhow!("All generators failed") )
 }
 
+pub async fn generate_rev(msg: &str, bot_name: &str, fancy: bool) -> anyhow::Result<String> {
+  let fmode =
+    if fancy {
+      ! (msg.contains("please")
+      || msg.contains("пожалуйста")
+      || msg.contains("Please")
+      || msg.contains("Пожалуйста")
+      || msg.contains("PLEASE"))
+    } else {
+      false
+    };
+
+  for gen in GENERATORS.iter().rev() {
+    if gen.enabled() {
+      if let Ok(result) = gen.call(msg, fmode, bot_name).await {
+        if !result.contains("502: Bad gateway") {
+          return Ok(result);
+        }
+      }
+    }
+  }
+
+  Err( anyhow::anyhow!("All generators failed") )
+}
+
 pub async fn generate_all<'a>(msg: &str, bot_name: &str, fancy: bool)
                                 -> Vec<(&'a str, anyhow::Result<String>)> {
   let fmode =
