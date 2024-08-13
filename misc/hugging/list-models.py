@@ -1,4 +1,4 @@
-from huggingface_hub import list_models, ModelFilter
+from huggingface_hub import list_models
 
 myModels = []
 
