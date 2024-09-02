@@ -73,7 +73,7 @@ impl Generator for BlackboxGenerator {
               messages.append({"role": "assistant", "content": tup[1]})
         try:
           messages.append({"role": "user", "content": prompt})
-          rspns = g4f.ChatCompletion.create( model="gpt-3.5-turbo", messages=messages
+          rspns = g4f.ChatCompletion.create( model="blackbox", messages=messages
                                            , stream=False, auth="jwt"
                                            , provider=g4f.Provider.Blackbox )
           if not rspns:
