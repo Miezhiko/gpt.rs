@@ -73,7 +73,7 @@ impl Generator for DDGGenerator {
               messages.append({"role": "assistant", "content": tup[1]})
         try:
           messages.append({"role": "user", "content": prompt})
-          rspns = g4f.ChatCompletion.create( model="gpt-4", messages=messages
+          rspns = g4f.ChatCompletion.create( model="gpt-4o-mini", messages=messages
                                            , stream=False, auth="jwt"
                                            , provider=g4f.Provider.DDG )
           if not rspns:
