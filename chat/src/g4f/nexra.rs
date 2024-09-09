@@ -22,12 +22,12 @@ use chat_utils::help::lang;
 static MSGHIST: Lazy<Mutex<VecDeque<(String, String)>>> =
   Lazy::new(|| Mutex::new( VecDeque::with_capacity(1) ));
 
-pub struct BinjieGenerator;
+pub struct NexraGenerator;
 
 #[async_trait]
-impl Generator for BinjieGenerator {
+impl Generator for NexraGenerator {
   fn name<'a>( &self ) -> &'a str {
-    "Binjie"
+    "Nexra"
   }
   fn enabled( &self ) -> bool {
     true
@@ -75,9 +75,9 @@ impl Generator for BinjieGenerator {
           messages.append({"role": "user", "content": prompt})
           rspns = g4f.ChatCompletion.create( model="gpt-3.5-turbo", messages=messages
                                            , stream=False, auth="jwt"
-                                           , provider=g4f.Provider.Binjie )
+                                           , provider=g4f.Provider.Nexra )
           if not rspns:
-            result = "Binjie: Sorry, I can't generate a response right now."
+            result = "Nexra: Sorry, I can't generate a response right now."
             reslt = False
           else:
             result = rspns
@@ -107,17 +107,17 @@ impl Generator for BinjieGenerator {
         } else {
           bail!("No tokens generated: {:?}", m_with_trash)
         }
-      }, Err(_) => { bail!("Failed to to use Binjie now!") }
+      }, Err(_) => { bail!("Failed to to use Nexra now!") }
     }
   }
 }
 
 #[cfg(test)]
-mod binjie_tests {
+mod nexra_tests {
   use super::*;
   #[tokio::test]
-  async fn binjie_test() {
-    let gen = BinjieGenerator;
+  async fn nexra_test() {
+    let gen = NexraGenerator;
     let chat_response =
       gen.call("what gpt version you use?", true, "Fingon").await;
     assert!(chat_response.is_ok());
