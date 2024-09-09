@@ -21,6 +21,7 @@ static GENERATORS: Lazy<Vec<Arc<dyn Generator + Send + Sync>>> =
   Lazy::new(|| {
     vec![ Arc::new( g4f::blackbox::BlackboxGenerator                  )
         , Arc::new( g4f::ddg::DDGGenerator                            )
+        , Arc::new( g4f::binjie::BinjieGenerator                      )
         , Arc::new( huggingface::HUGGING_FACE_GENERATOR_PHI           )
         , Arc::new( huggingface::HUGGING_FACE_GENERATOR_GEMMA         )
         , Arc::new( g4f::pizzagpt::PizzagptGenerator                  )
