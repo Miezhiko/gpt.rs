@@ -115,7 +115,9 @@ impl Generator for NexraGenerator {
 #[cfg(test)]
 mod nexra_tests {
   use super::*;
+  use serial_test::serial;
   #[tokio::test]
+  #[serial]
   async fn nexra_test() {
     let gen = NexraGenerator;
     let chat_response =

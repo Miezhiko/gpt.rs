@@ -103,7 +103,9 @@ pub const HUGGING_FACE_GENERATOR_YI: HuggingFaceGenerator = HuggingFaceGenerator
 #[cfg(test)]
 mod huggingface_tests {
   use super::*;
+  use serial_test::serial;
   #[tokio::test]
+  #[serial]
   async fn huggingface_tests() {
     let gen = HUGGING_FACE_GENERATOR_MIXTRAL;
     let chat_response =

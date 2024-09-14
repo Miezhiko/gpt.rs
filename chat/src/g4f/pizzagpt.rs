@@ -115,7 +115,9 @@ impl Generator for PizzagptGenerator {
 #[cfg(test)]
 mod pizzagpt_tests {
   use super::*;
+  use serial_test::serial;
   #[tokio::test]
+  #[serial]
   async fn pizzagpt_test() {
     let gen = PizzagptGenerator;
     let chat_response =

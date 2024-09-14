@@ -115,7 +115,9 @@ impl Generator for DDGGenerator {
 #[cfg(test)]
 mod ddg_tests {
   use super::*;
+  use serial_test::serial;
   #[tokio::test]
+  #[serial]
   async fn ddg_test() {
     let gen = DDGGenerator;
     let chat_response =

@@ -115,7 +115,9 @@ impl Generator for BinjieGenerator {
 #[cfg(test)]
 mod binjie_tests {
   use super::*;
+  use serial_test::serial;
   #[tokio::test]
+  #[serial]
   async fn binjie_test() {
     let gen = BinjieGenerator;
     let chat_response =

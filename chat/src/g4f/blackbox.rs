@@ -115,7 +115,9 @@ impl Generator for BlackboxGenerator {
 #[cfg(test)]
 mod blackbox_tests {
   use super::*;
+  use serial_test::serial;
   #[tokio::test]
+  #[serial]
   async fn blackbox_test() {
     let gen = BlackboxGenerator;
     let chat_response =

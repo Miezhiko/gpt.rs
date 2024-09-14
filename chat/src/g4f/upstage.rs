@@ -115,7 +115,9 @@ impl Generator for UpstageGenerator {
 #[cfg(test)]
 mod upstage_tests {
   use super::*;
+  use serial_test::serial;
   #[tokio::test]
+  #[serial]
   async fn upstage_test() {
     let gen = UpstageGenerator;
     let chat_response =
