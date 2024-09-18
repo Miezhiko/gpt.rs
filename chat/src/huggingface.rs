@@ -65,13 +65,6 @@ impl Generator for HuggingFaceGenerator {
   }
 }
 
-pub const HUGGING_FACE_GENERATOR_PHI: HuggingFaceGenerator = HuggingFaceGenerator {
-  name: "HuggingFaceGeneratorPhi",
-  enabled: true,
-  enabled_for_multigen: true,
-  model: "microsoft/Phi-3-mini-4k-instruct"
-};
-
 pub const HUGGING_FACE_GENERATOR_MIXTRAL: HuggingFaceGenerator = HuggingFaceGenerator {
   name: "HuggingFaceGeneratorMixtral",
   enabled: true,
