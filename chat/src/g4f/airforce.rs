@@ -92,6 +92,9 @@ impl Generator for AirforceGenerator {
               msg_lock.push_back((prompt.to_string(), m.to_string()));
             }
           }
+          if m.contains("One message exceeds the 1000chars per message limit") {
+            bail!("this provider is dead") 
+          }
           Ok(m.to_string())
         } else {
           bail!("No tokens generated: {:?}", m_with_trash)
