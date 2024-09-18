@@ -53,7 +53,7 @@ impl Generator for DDGGenerator {
         elif is_russian:
           systemContext = "Answer in Russian: "
         else:
-          systemContext += ""
+          systemContext = ""
         messages = []
         if fmode and old_messages:
           for tup in old_messages:
