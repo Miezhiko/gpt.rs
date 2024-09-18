@@ -1,6 +1,6 @@
 use crate::{
   types::Generator,
-  personality::get_personality,
+  personality::{ get_personality, MSGHIST },
   constants
 };
 
@@ -9,18 +9,9 @@ use std::panic::catch_unwind;
 
 use anyhow::bail;
 
-use std::collections::VecDeque;
-
-use once_cell::sync::Lazy;
-
-use tokio::sync::Mutex;
-
 use async_trait::async_trait;
 
 use chat_utils::help::lang;
-
-static MSGHIST: Lazy<Mutex<VecDeque<(String, String)>>> =
-  Lazy::new(|| Mutex::new( VecDeque::with_capacity(1) ));
 
 pub struct UpstageGenerator;
 
