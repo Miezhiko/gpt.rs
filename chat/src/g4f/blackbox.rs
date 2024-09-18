@@ -95,15 +95,17 @@ impl Generator for BlackboxGenerator {
         if r {
           let re = regex::Regex::new(r"\$@\$(.*?)\$@\$").unwrap();
           let m = re.replace_all(m_with_trash.as_str(), "");
-          if !m.is_empty() {
+          let bb_tool_re = regex::Regex::new(r"\$~~~.*?~~~\$").unwrap();
+          let bb_res = bb_tool_re.replace_all(&m, "");
+          if !bb_res.is_empty() {
             if msg_lock.len() == msg_lock.capacity() {
               msg_lock.pop_front();
             }
-            if (prompt.len() + m.len()) < constants::HISTORY_LIMIT {
-              msg_lock.push_back((prompt.to_string(), m.to_string()));
+            if (prompt.len() + bb_res.len()) < constants::HISTORY_LIMIT {
+              msg_lock.push_back((prompt.to_string(), bb_res.to_string()));
             }
           }
-          Ok(m.to_string())
+          Ok(bb_res.to_string())
         } else {
           bail!("No tokens generated: {:?}", m_with_trash)
         }
