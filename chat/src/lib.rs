@@ -1,7 +1,5 @@
 #![feature(async_closure)]
 
-extern crate anyhow;
-
 mod personality;
 mod constants;
 
@@ -16,6 +14,9 @@ use std::sync::Arc;
 use futures::future;
 
 use once_cell::sync::Lazy;
+
+use rand::seq::SliceRandom;
+use rand::thread_rng;
 
 static GENERATORS: Lazy<Vec<Arc<dyn Generator + Send + Sync>>> =
   Lazy::new(|| {
@@ -46,36 +47,25 @@ pub async fn generate(msg: &str, bot_name: &str, fancy: bool) -> anyhow::Result<
       false
     };
 
-  for gen in &*GENERATORS {
-    if gen.enabled() {
-      if let Ok(result) = gen.call(msg, fmode, bot_name).await {
-        if !result.contains("502: Bad gateway") {
-          return Ok(result);
+  if fmode {
+    let mut genrators = GENERATORS.clone();
+    genrators.shuffle(&mut thread_rng());
+    for gen in genrators {
+      if gen.enabled() {
+        if let Ok(result) = gen.call(msg, fmode, bot_name).await {
+          if !result.contains("502: Bad gateway") {
+            return Ok(result);
+          }
         }
       }
     }
-  }
-
-  Err( anyhow::anyhow!("All generators failed") )
-}
-
-pub async fn generate_rev(msg: &str, bot_name: &str, fancy: bool) -> anyhow::Result<String> {
-  let fmode =
-    if fancy {
-      ! (msg.contains("please")
-      || msg.contains("пожалуйста")
-      || msg.contains("Please")
-      || msg.contains("Пожалуйста")
-      || msg.contains("PLEASE"))
-    } else {
-      false
-    };
-
-  for gen in GENERATORS.iter().rev() {
-    if gen.enabled() {
-      if let Ok(result) = gen.call(msg, fmode, bot_name).await {
-        if !result.contains("502: Bad gateway") {
-          return Ok(result);
+  } else {
+    for gen in &*GENERATORS {
+      if gen.enabled() {
+        if let Ok(result) = gen.call(msg, fmode, bot_name).await {
+          if !result.contains("502: Bad gateway") {
+            return Ok(result);
+          }
         }
       }
     }
