@@ -105,7 +105,11 @@ impl Generator for BlackboxGenerator {
               msg_lock.push_back((prompt.to_string(), bb_res.to_string()));
             }
           }
-          Ok(bb_res.to_string())
+          let mut res = bb_res.to_string();
+          while res.contains("\n\n") {
+            res = res.replace("\n\n", "\n");
+          }
+          Ok(res)
         } else {
           bail!("No tokens generated: {:?}", m_with_trash)
         }
