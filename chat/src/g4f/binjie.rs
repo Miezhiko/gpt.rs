@@ -50,20 +50,18 @@ impl Generator for BinjieGenerator {
         result = ""
         if fmode:
           systemContext = PERSONALITY
+        elif is_russian:
+          systemContext = "Answer in Russian:"
         else:
-          systemContext = "You are a helpful assistant"
-        if is_russian:
-          systemContext += ", you reply in Russian, you don't provide Translation"
-        else:
-          systemContext += ", you reply in English"
-        messages = [{"role": "system", "content": systemContext}]
+          systemContext += ""
+        messages = []
         if fmode and old_messages:
           for tup in old_messages:
             if tup and len(tup) == 2:
               messages.append({"role": "user", "content": tup[0]})
               messages.append({"role": "assistant", "content": tup[1]})
         try:
-          messages.append({"role": "user", "content": prompt})
+          messages.append({"role": "user", "content": systemContext + prompt})
           rspns = g4f.ChatCompletion.create( model="gpt-3.5-turbo", messages=messages
                                            , stream=False, auth="jwt"
                                            , provider=g4f.Provider.Binjie )
