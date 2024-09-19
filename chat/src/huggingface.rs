@@ -65,11 +65,11 @@ impl Generator for HuggingFaceGenerator {
   }
 }
 
-pub const HUGGING_FACE_GENERATOR_MIXTRAL: HuggingFaceGenerator = HuggingFaceGenerator {
-  name: "HuggingFaceGeneratorMixtral",
+pub const HUGGING_FACE_GENERATOR_BLOOM: HuggingFaceGenerator = HuggingFaceGenerator {
+  name: "HuggingFaceBloom",
   enabled: true,
   enabled_for_multigen: true,
-  model: "mistralai/Mistral-7B-Instruct-v0.2"
+  model: "bigscience/bloom"
 };
 
 pub const HUGGING_FACE_GENERATOR_GEMMA: HuggingFaceGenerator = HuggingFaceGenerator {
@@ -79,6 +79,13 @@ pub const HUGGING_FACE_GENERATOR_GEMMA: HuggingFaceGenerator = HuggingFaceGenera
   model: "google/gemma-1.1-7b-it"
 };
 
+pub const HUGGING_FACE_GENERATOR_ZEPHIR: HuggingFaceGenerator = HuggingFaceGenerator {
+  name: "HuggingFaceGeneratorZephyr",
+  enabled: true,
+  enabled_for_multigen: true,
+  model: "HuggingFaceH4/zephyr-7b-beta"
+};
+
 #[cfg(test)]
 mod huggingface_tests {
   use super::*;
@@ -86,7 +93,7 @@ mod huggingface_tests {
   #[tokio::test]
   #[serial]
   async fn huggingface_tests() {
-    let gen = HUGGING_FACE_GENERATOR_MIXTRAL;
+    let gen = HUGGING_FACE_GENERATOR_GEMMA;
     let chat_response =
       gen.call("what gpt version you use?", true, "Fingon").await;
     assert!(chat_response.is_ok());

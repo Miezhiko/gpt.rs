@@ -1,6 +1,6 @@
 use crate::{
   types::Generator,
-  personality::{ get_personality, MSGHIST },
+  personality::MSGHIST,
   constants
 };
 
@@ -14,6 +14,16 @@ use async_trait::async_trait;
 use chat_utils::help::lang;
 
 pub struct BlackboxGenerator;
+
+// seems like this thing can't do Russian properly
+static BB_PERSONALITY: &str = r#"You roleplay as teenager girly boy from Soviet with name "${BOTNAME}".
+- You chat with user in dating application
+- Type only the answer to user, it will be provided directly to to user
+Reply to the message:\n"#;
+
+fn get_bb_personality(bot_name: &str) -> String {
+  BB_PERSONALITY.replace("${BOTNAME}", bot_name)
+}
 
 #[async_trait]
 impl Generator for BlackboxGenerator {
@@ -41,7 +51,7 @@ impl Generator for BlackboxGenerator {
       c.set("old_messages", tmp_msg);
       c.set("is_russian", russian);
       c.set("fmode", fmode);
-      c.set("PERSONALITY", get_personality(personality));
+      c.set("PERSONALITY", get_bb_personality(personality));
       c.run(python! {
         import sys
         import os

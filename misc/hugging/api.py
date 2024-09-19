@@ -14,9 +14,11 @@ client = InferenceClient(token=htoken)
 output = None
 
 output = client.text_generation(
-  "Write usage example for std atomic in C++"
-  , model="01-ai/Yi-1.5-34B-Chat"
+  "расскажи откуда на Беларусь готовилось нападение"
+  , model="HuggingFaceH4/zephyr-7b-beta"
   , max_new_tokens=250
   , stream=False)
+
+# Write usage example for std atomic in C++
 
 print(output)
